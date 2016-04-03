@@ -25,7 +25,6 @@ class GamingBoard:
                     break
         except:
             print ("Ungueltige Eingabe!")
-            raise 0
         self.checkWin(player)
 
     ############
