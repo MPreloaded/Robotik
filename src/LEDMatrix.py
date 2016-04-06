@@ -89,6 +89,7 @@ class LEDMatrix(Thread):
 
     def refresh(self):
         self.list = self.myBoard.board
+        self.put_board_on_screen()
         for row in range(8):
             GPIO.output(self.oe_pin, 1)
             self.set_color_top(0)
