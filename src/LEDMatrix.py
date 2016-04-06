@@ -1,9 +1,9 @@
 import RPi.GPIO as GPIO
+from FourWins import GamingBoard
 import time
 from threading import Thread
 
 class LEDMatrix(Thread):
-    global ledList
     delay = 0.000001
 
     GPIO.setmode(GPIO.BCM)
@@ -47,8 +47,9 @@ class LEDMatrix(Thread):
     # screen to produce on the led matrix. Beginning in the upper left corner
     screen = [[0 for x in range(32)] for x in range(16)]
 
-    def __init__(self):
-        self.setup_list()
+    def __init__(self, gamingBoard):
+        self.myBoard = gamingBoard
+        self.list = gamingBoard.board
         self.clear_screen()
         self.put_border_on_screen()
         self.put_board_on_screen()
@@ -86,6 +87,7 @@ class LEDMatrix(Thread):
         GPIO.output(self.blue2_pin, blue)
 
     def refresh(self):
+        self.list = self.gamingBoard.board
         for row in range(8):
             GPIO.output(self.oe_pin, 1)
             self.set_color_top(0)
@@ -114,21 +116,18 @@ class LEDMatrix(Thread):
                 if (row == 2 or row == 15 or col == 8 or col == 23):
                     self.screen[row][col] = color;
 
-    def put_board_on_screen(self, ):
-        for i in range(ledList):
-            for j in range(len(ledList[i])):
-                self.screen[2*i+3][2*j+9]  = ledList[i][j]
-                self.screen[2*i+3][2*j+10] = ledList[i][j]
-                self.screen[2*i+4][2*j+9]  = ledList[i][j]
-                self.screen[2*i+4][2*j+10] = ledList[i][j]
+    def put_board_on_screen(self):
+        for i in range(self.list):
+            for j in range(len(self.list[i])):
+                self.screen[2*i+3][2*j+9]  = self.list[i][j]
+                self.screen[2*i+3][2*j+10] = self.list[i][j]
+                self.screen[2*i+4][2*j+9]  = self.list[i][j]
+                self.screen[2*i+4][2*j+10] = self.list[i][j]
 
     def clear_screen(self):
         for row in range(16):
             for col in range(32):
                 self.screen[row][col] = 0;
-
-    def setup_list(self):
-        ledList = [[0 for x in range(7)] for x in range(6)]
 
     def run(self):
         while True:
