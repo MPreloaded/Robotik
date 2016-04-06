@@ -48,8 +48,9 @@ class LEDMatrix(Thread):
     screen = [[0 for x in range(32)] for x in range(16)]
 
     def __init__(self, gamingBoard):
+        Thread.__init__(self)
         self.myBoard = gamingBoard
-        self.list = gamingBoard.board
+        self.list = self.myBoard.board
         self.clear_screen()
         self.put_border_on_screen()
         self.put_board_on_screen()
@@ -87,7 +88,7 @@ class LEDMatrix(Thread):
         GPIO.output(self.blue2_pin, blue)
 
     def refresh(self):
-        self.list = self.gamingBoard.board
+        self.list = self.myBoard.board
         for row in range(8):
             GPIO.output(self.oe_pin, 1)
             self.set_color_top(0)
@@ -117,7 +118,7 @@ class LEDMatrix(Thread):
                     self.screen[row][col] = color;
 
     def put_board_on_screen(self):
-        for i in range(self.list):
+        for i in range(len(self.list)):
             for j in range(len(self.list[i])):
                 self.screen[2*i+3][2*j+9]  = self.list[i][j]
                 self.screen[2*i+3][2*j+10] = self.list[i][j]

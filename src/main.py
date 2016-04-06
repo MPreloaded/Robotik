@@ -7,7 +7,6 @@ def main():
     myBoard = GamingBoard(rows, columns)
     myLEDMatrix = LEDMatrix(myBoard)
     myLEDMatrix.start()
-    myLEDMatrix.run()
 
     printList(myBoard)
     running = True
@@ -27,7 +26,7 @@ def printList(myBoard):
     print
 
 def turn(myBoard, player):
-    targetCol = raw_input("In welche Reihe soll der Stein geworfen werden?: ")
+    targetCol = input("In welche Reihe soll der Stein geworfen werden?: ")
     myBoard.turn(player, targetCol)
 
 if __name__ == "__main__":
