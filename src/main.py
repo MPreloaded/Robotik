@@ -7,6 +7,7 @@ def main():
     myBoard = GamingBoard(rows, columns)
     myLEDMatrix = LEDMatrix(myBoard)
     myLEDMatrix.start()
+    getch = _find_getch()
 
     printList(myBoard)
     running = True
@@ -15,7 +16,7 @@ def main():
         turn(myBoard, 1)
         printList(myBoard)
         print("Spieler 2 ist am Zug!")
-        turn(myBoard, 2)
+        turn(myBoard, 3)
         printList(myBoard)
 
 
@@ -26,8 +27,31 @@ def printList(myBoard):
     print
 
 def turn(myBoard, player):
-    targetCol = input("In welche Reihe soll der Stein geworfen werden?: ")
+    while True:
+        inp = getch()
     myBoard.turn(player, targetCol)
+
+def _find_getch():
+    try:
+        import termios
+    except ImportError:
+        # Non-POSIX. Return msvcrt's (Windows') getch.
+        import msvcrt
+        return msvcrt.getch
+
+    # POSIX system. Create and return a getch that manipulates the tty.
+    import sys, tty
+    def _getch():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+    return _getch
 
 if __name__ == "__main__":
     main()

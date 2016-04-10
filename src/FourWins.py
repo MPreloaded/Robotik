@@ -5,6 +5,7 @@ class GamingBoard:
         self.rows = rows
         self.columns = columns
         self.board = []
+        self.currentPosition = 0
         for i in range (0, self.rows):
             row = []
             for j in range (0, self.columns):
@@ -25,6 +26,7 @@ class GamingBoard:
                     break
         except:
             print ("Ungueltige Eingabe!")
+        self.currentPosition = 0
         self.checkWin(player)
 
     ############
@@ -99,3 +101,11 @@ class GamingBoard:
     def printWinner(self, player):
             print ("Spieler " + str(player) + " gewinnt!!!")
             print ("!!!Herzlichen Glueckwunsch!!!")
+
+    def moveRight(self):
+        if self.currentPosition < 7:
+            self.currentPosition = self.currentPosition+1
+
+    def moveLeft(self):
+        if self.currentPosition > 1:
+            self.currentPosition = self.currentPosition-1

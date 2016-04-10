@@ -134,3 +134,4 @@ class LEDMatrix(Thread):
     def run(self):
         while True:
             self.refresh()
+
