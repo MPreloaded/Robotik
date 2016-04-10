@@ -30,7 +30,7 @@ def printList(myBoard):
 def turn(myBoard, myLEDMatrix):
     while True:
         inp = getch()
-        print(inp)
+        print(ord(inp))
         if ord(inp) == 113:
             print("Exit")
             sys.exit()
