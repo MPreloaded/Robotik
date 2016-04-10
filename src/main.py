@@ -1,5 +1,6 @@
 from FourWins import GamingBoard
 from LEDMatrix import LEDMatrix
+global getch = _find_getch()
 
 def main():
     rows = 6
@@ -29,7 +30,7 @@ def printList(myBoard):
 def turn(myBoard, player):
     while True:
         inp = getch()
-    myBoard.turn(player, targetCol)
+        print(inp)
 
 def _find_getch():
     try:
