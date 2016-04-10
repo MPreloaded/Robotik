@@ -47,7 +47,6 @@ def turn(myBoard, player):
                 continue
             break
 
-
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
     fd = sys.stdin.fileno()
