@@ -16,7 +16,6 @@ class GamingBoard:
     ############
     #  Public  #
     ############
-
     def throw(self, player):
         stoneSet = False
         for row in range(self.rows-1, -1, -1):
@@ -27,34 +26,35 @@ class GamingBoard:
         if stoneSet == False:
             raise 1
         self.currentPosition = 4
-        self.checkWin(player)
+        won = GamingBoard.checkWin(player, self.board)
         self.currentPlayer = player
-
-    def checkWin(self, player):
-        won = False
-
-        if not won:
-            won = self._checkColWin(player)
-
-        if not won:
-            won = self._checkRowWin(player)
-
-        if not won:
-            won = self._checkDiagULWin(player)
-
-        if not won:
-            won = self._checkDiagURWin(player)
-
-        if won:
-            self.printWinner(player)
 
     ############
     # Private  #
     ############
+    @staticmethod
+    def checkWin(player, list):
+        won = False
 
-    def _checkRowWin(self, player):
+        if not won:
+            won = GamingBoard._checkColWin(player, list)
+
+        if not won:
+            won = GamingBoard._checkRowWin(player, list)
+
+        if not won:
+            won = GamingBoard._checkDiagULWin(player, list)
+
+        if not won:
+            won = GamingBoard._checkDiagURWin(player, list)
+
+        return won
+
+
+    @staticmethod
+    def _checkRowWin(player, list):
         count = 0
-        for row in self.board:
+        for row in list:
             for token in row:
                 if token == player:
                     count = count+1
@@ -64,10 +64,11 @@ class GamingBoard:
                     return True
         return False
 
-    def _checkColWin(self, player):
+    @staticmethod
+    def _checkColWin(player, list):
         count = 0
-        for i in range (0, self.columns, 1):
-            for row in self.board:
+        for i in range (0, len(list[0]), 1):
+            for row in list:
                 if row[i] == player:
                     count = count + 1
                 else:
@@ -76,24 +77,26 @@ class GamingBoard:
                     return True
         return False
 
-    def _checkDiagULWin(self, player):
-        for row in range (0, self.rows-3, 1):
-            for col in range (0, self.columns-3, 1):
+    @staticmethod
+    def _checkDiagULWin(player, list):
+        for row in range (0, len(list)-3, 1):
+            for col in range (0, len(list[0])-3, 1):
                 count = 0
                 for n in range (0, 4, 1):
-                    if self.board[row+n][col+n] == player:
+                    if list[row+n][col+n] == player:
                         count = count + 1
                     if count == 4:
                         return True
         return False
 
-    def _checkDiagURWin(self, player):
+    @staticmethod
+    def _checkDiagURWin(player, list):
         count = 0
-        for row in range(0, self.rows-3, 1):
-            for col in range(self.columns-3, 0, -1):
+        for row in range(0, len(list)-3, 1):
+            for col in range(len(list[0])-3, 0, -1):
                 count = 0
                 for n in range (0, 4, 1):
-                    if self.board[row+n][col-n] == player:
+                    if list[row+n][col-n] == player:
                         count = count + 1
                     if count == 4:
                         return True
