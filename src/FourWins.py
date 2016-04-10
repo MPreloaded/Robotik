@@ -26,7 +26,15 @@ class GamingBoard:
                     break
         except:
             print ("Ungueltige Eingabe!")
-        self.currentPosition = 0
+        self.currentPosition = 1
+        self.checkWin(player)
+
+    def throw(self, player):
+        for row in range(self.rows-1, -1, -1):
+            if self.board[row][self.currentPosition-1] == 0:
+                self.board[row][self.currentPosition-1] = player
+                break
+        self.currentPosition = 1
         self.checkWin(player)
 
     ############

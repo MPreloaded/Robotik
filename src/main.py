@@ -27,7 +27,7 @@ def printList(myBoard):
         print (myBoard.board[i])
     print
 
-def turn(myBoard, myLEDMatrix):
+def turn(myBoard, player):
     while True:
         inp = getch()
         print(ord(inp))
@@ -40,6 +40,9 @@ def turn(myBoard, myLEDMatrix):
         elif ord(inp) == 68:
             print("left")
             myBoard.moveLeft()
+        elif ord(inp) == 13:
+            myBoard.throw(player)
+
 
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
