@@ -1,6 +1,6 @@
 from FourWins import GamingBoard
 from LEDMatrix import LEDMatrix
-global getch = _find_getch()
+import sys, tty, termios
 
 def main():
     rows = 6
@@ -8,7 +8,6 @@ def main():
     myBoard = GamingBoard(rows, columns)
     myLEDMatrix = LEDMatrix(myBoard)
     myLEDMatrix.start()
-    getch = _find_getch()
 
     printList(myBoard)
     running = True
@@ -32,27 +31,16 @@ def turn(myBoard, player):
         inp = getch()
         print(inp)
 
-def _find_getch():
-    try:
-        import termios
-    except ImportError:
-        # Non-POSIX. Return msvcrt's (Windows') getch.
-        import msvcrt
-        return msvcrt.getch
-
+def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
-    import sys, tty
-    def _getch():
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(fd)
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
-
-    return _getch
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
 
 if __name__ == "__main__":
     main()
