@@ -7,6 +7,7 @@ def main():
     columns = 7
     myBoard = GamingBoard(rows, columns)
     myLEDMatrix = LEDMatrix(myBoard)
+    myLEDMatrix.setDaemon(True)
     myLEDMatrix.start()
 
     printList(myBoard)
@@ -26,17 +27,17 @@ def printList(myBoard):
         print (myBoard.board[i])
     print
 
-def turn(myBoard, player):
+def turn(myBoard, myLEDMatrix):
     while True:
         inp = getch()
         print(inp)
         if ord(inp) == 113:
             print("Exit")
             sys.exit()
-        elif ord(inp) == 87:
+        elif ord(inp) == 67:
             print("right")
             myBoard.moveRight()
-        elif ord(inp) == 88:
+        elif ord(inp) == 68:
             print("left")
             myBoard.moveLeft()
 
