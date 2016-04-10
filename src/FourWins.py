@@ -30,10 +30,14 @@ class GamingBoard:
         self.checkWin(player)
 
     def throw(self, player):
+        stoneSet = False
         for row in range(self.rows-1, -1, -1):
             if self.board[row][self.currentPosition-1] == 0:
                 self.board[row][self.currentPosition-1] = player
+                stoneSet = True
                 break
+        if stoneSet == False:
+            raise 1
         self.currentPosition = 1
         self.checkWin(player)
 

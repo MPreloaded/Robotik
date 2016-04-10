@@ -41,7 +41,11 @@ def turn(myBoard, player):
             print("left")
             myBoard.moveLeft()
         elif ord(inp) == 13:
-            myBoard.throw(player)
+            try:
+                myBoard.throw(player)
+            except:
+                continue
+            break
 
 
 def getch():
