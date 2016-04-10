@@ -30,6 +30,15 @@ def turn(myBoard, player):
     while True:
         inp = getch()
         print(inp)
+        if ord(inp) == 113:
+            print("Exit")
+            sys.exit()
+        elif ord(inp) == 87:
+            print("right")
+            myBoard.moveRight()
+        elif ord(inp) == 88:
+            print("left")
+            myBoard.moveLeft()
 
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
