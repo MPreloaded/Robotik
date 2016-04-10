@@ -5,7 +5,7 @@ class GamingBoard:
         self.rows = rows
         self.columns = columns
         self.board = []
-        self.currentPosition = 0
+        self.currentPosition = 4
         for i in range (0, self.rows):
             row = []
             for j in range (0, self.columns):
@@ -26,7 +26,7 @@ class GamingBoard:
                     break
         except:
             print ("Ungueltige Eingabe!")
-        self.currentPosition = 1
+        self.currentPosition = 4
         self.checkWin(player)
 
     def throw(self, player):
@@ -38,12 +38,9 @@ class GamingBoard:
                 break
         if stoneSet == False:
             raise 1
-        self.currentPosition = 1
+        self.currentPosition = 4
         self.checkWin(player)
 
-    ############
-    # Private  #
-    ############
     def checkWin(self, player):
         won = False
 
@@ -62,6 +59,9 @@ class GamingBoard:
         if won:
             self.printWinner(player)
 
+    ############
+    # Private  #
+    ############
 
     def _checkRowWin(self, player):
         count = 0
