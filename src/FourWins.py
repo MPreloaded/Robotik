@@ -11,23 +11,11 @@ class GamingBoard:
             for j in range (0, self.columns):
                 row.append(0)
             self.board.append(row)
+        self.currentPlayer = 1
 
     ############
     #  Public  #
     ############
-    def turn(self, player, targetCol):
-        try:
-            targetCol = int(targetCol)
-            if targetCol < 1:
-                raise 0
-            for row in range (self.rows-1, -1, -1):
-                if self.board[row][targetCol-1] == 0:
-                    self.board[row][targetCol-1] = player
-                    break
-        except:
-            print ("Ungueltige Eingabe!")
-        self.currentPosition = 4
-        self.checkWin(player)
 
     def throw(self, player):
         stoneSet = False
@@ -40,6 +28,7 @@ class GamingBoard:
             raise 1
         self.currentPosition = 4
         self.checkWin(player)
+        self.currentPlayer = player
 
     def checkWin(self, player):
         won = False

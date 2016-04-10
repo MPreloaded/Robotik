@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 from FourWins import GamingBoard
 import time
-from threading import Thread, _start_new_thread
+from threading import Thread
+from _thread import start_new_thread
 class LEDMatrix(Thread):
     delay = 0.000001
 
@@ -53,7 +54,7 @@ class LEDMatrix(Thread):
         self.clear_screen()
         self.put_border_on_screen()
         self.put_board_on_screen()
-        _start_new_thread(self.blinkTimer())
+        start_new_thread(self.blinkTimer,())
 
     def clock(self):
         GPIO.output(self.clock_pin, 1)
@@ -116,7 +117,7 @@ class LEDMatrix(Thread):
         for row in range(2, 16):
             for col in range(8, 24):
                 if (row == 2 or row == 15 or col == 8 or col == 23):
-                    self.screen[row][col] = color;
+                    self.screen[row][col] = color
 
     def put_board_on_screen(self):
         for i in range(len(self.list)):
@@ -129,7 +130,7 @@ class LEDMatrix(Thread):
     def clear_screen(self):
         for row in range(16):
             for col in range(32):
-                self.screen[row][col] = 0;
+                self.screen[row][col] = 0
 
     def clearBlink(self):
         for row in range(0, 1):
@@ -143,10 +144,11 @@ class LEDMatrix(Thread):
 
     def blinkTimer(self):
         blinkPos = self.myBoard.currentPosition
-        self.screen[0][2*blinkPos]
-        self.screen[0][2*blinkPos+1]
-        self.screen[1][2*blinkPos]
-        self.screen[1][2*blinkPos+1]
+        player = self.myBoard.currentPlayer
+        self.screen[0][2*blinkPos] = player
+        self.screen[0][2*blinkPos+1] = player
+        self.screen[1][2*blinkPos] = player
+        self.screen[1][2*blinkPos+1] =player
         time.sleep(0.5)
         self.clearBlink()
         time.sleep(0.5)
