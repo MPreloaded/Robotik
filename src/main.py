@@ -1,20 +1,17 @@
 from FourWins import GamingBoard
 from MiniMax import MiniMax
-#from LEDMatrix import LEDMatrix
+from LEDMatrix import LEDMatrix
 
 import sys, tty, termios
 
 def main():
     rows = 6
     columns = 7
-    depth = 2
     myBoard = GamingBoard(rows, columns)
     
-    #myLEDMatrix = LEDMatrix(myBoard)
-    #myLEDMatrix.setDaemon(True)
-    #myLEDMatrix.start()
-
-    myAI = MiniMax(depth)
+    myLEDMatrix = LEDMatrix(myBoard)
+    myLEDMatrix.setDaemon(True)
+    myLEDMatrix.start()
 
     printList(myBoard)
     running = True
@@ -22,11 +19,9 @@ def main():
         print("Spieler 1 ist am Zug!")
         turn(myBoard, 1)
         printList(myBoard)
-        print("KI ist am Zug!")
-        myAI.minimaxAI(myBoard.board, 3)
-        #print("Spieler 2 ist am Zug!")
-        #turn(myBoard, 3)
-        #printList(myBoard)
+        print("Spieler 2 ist am Zug!")
+        turn(myBoard, 3)
+        printList(myBoard)
 
 
 def printList(myBoard):

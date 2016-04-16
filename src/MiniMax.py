@@ -117,5 +117,20 @@ class MiniMax:
             
         return tmp
         
-    
-    
+if __name__ == "__main__":
+    import main
+    rows = 6
+    columns = 7
+    depth = 2
+    myBoard = GamingBoard(rows, columns)
+    myAI = MiniMax(depth)
+
+    main.printList(myBoard)
+    running = True
+    while running:
+        print("Spieler 1 ist am Zug!")
+        main.turn(myBoard, 1)
+        main.printList(myBoard)
+        print("KI ist am Zug!")
+        myAI.minimaxAI(myBoard.board, 3)
+        main.printList(myBoard)
