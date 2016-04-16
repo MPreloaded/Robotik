@@ -65,7 +65,8 @@ class MiniMax:
        score of the board passed by list for given player
     """
     def score(self, player, list, column):
-        if GamingBoard.checkWin(player, list):
+        won, winningStones = GamingBoard.checkWin(player,list)
+        if won:
             return 50
         elif self._checkPrevent(player, list, column):
             return 40
@@ -107,7 +108,7 @@ class MiniMax:
         else:
             list[row][column] = 1
             
-        tmp = GamingBoard.checkWin(player, list)
+        tmp, winningStones = GamingBoard.checkWin(player, list)
         
         #return board to old state
         if player == 1:

@@ -6,6 +6,7 @@ class GamingBoard:
         self.columns = columns
         self.board = []
         self.currentPosition = 4
+        self.gameOver = False
         for i in range (0, self.rows):
             row = []
             for j in range (0, self.columns):
@@ -26,8 +27,12 @@ class GamingBoard:
         if stoneSet == False:
             raise 1
         self.currentPosition = 4
-        won = GamingBoard.checkWin(player, self.board)
-        self.currentPlayer = player
+        won, winningStones = GamingBoard.checkWin(player, self.board)
+        if won:
+            for stone in winningStones:
+                self.board[stone[0][1]] = 2
+            self.gameOver = True
+        self.currentPlayer = self.getNextPlayer()
 
     ############
     # Private  #
@@ -37,48 +42,55 @@ class GamingBoard:
         won = False
 
         if not won:
-            won = GamingBoard._checkColWin(player, list)
+            won, winningStones = GamingBoard._checkColWin(player, list)
 
         if not won:
-            won = GamingBoard._checkRowWin(player, list)
+            won, winningStones = GamingBoard._checkRowWin(player, list)
 
         if not won:
-            won = GamingBoard._checkDiagULWin(player, list)
+            won, winningStones = GamingBoard._checkDiagULWin(player, list)
 
         if not won:
-            won = GamingBoard._checkDiagURWin(player, list)
+            won, winningStones = GamingBoard._checkDiagURWin(player, list)
 
-        return won
+        return won, winningStones
 
 
     @staticmethod
     def _checkRowWin(player, list):
+        winningStones = []
         count = 0
-        for row in list:
-            for token in row:
-                if token == player:
+        for row in range (0, len(list), 1):
+            for col in range (0, len(list)[0], 1):
+                if list[row][col] == player:
                     count = count+1
                 else:
                     count = 0
-                if count ==4:
+                if count == 4:
+                    for i in range (0, 4):
+                        winningStones.append[(row, col-i)]
                     return True
-        return False
+        return False, winningStones
 
     @staticmethod
     def _checkColWin(player, list):
+        winningStones = []
         count = 0
-        for i in range (0, len(list[0]), 1):
-            for row in list:
-                if row[i] == player:
+        for col in range (0, len(list[0]), 1):
+            for row in range(0, len(list), 1):
+                if list[row][col] == player:
                     count = count + 1
                 else:
                     count = 0
                 if count == 4:
+                    for i in range (0, 4):
+                        winningStones.append[(row-i, col)]
                     return True
-        return False
+        return False, winningStones
 
     @staticmethod
     def _checkDiagULWin(player, list):
+        winningStones = []
         for row in range (0, len(list)-3, 1):
             for col in range (0, len(list[0])-3, 1):
                 count = 0
@@ -86,12 +98,14 @@ class GamingBoard:
                     if list[row+n][col+n] == player:
                         count = count + 1
                     if count == 4:
-                        return True
-        return False
+                        for i in range (0, 4):
+                            winningStones.append[(row-i, col-i)]
+                        return True, winningStones
+        return False, winningStones
 
     @staticmethod
     def _checkDiagURWin(player, list):
-        count = 0
+        winningStones = []
         for row in range(0, len(list)-3, 1):
             for col in range(len(list[0])-3, 0, -1):
                 count = 0
@@ -99,8 +113,16 @@ class GamingBoard:
                     if list[row+n][col-n] == player:
                         count = count + 1
                     if count == 4:
-                        return True
-        return False
+                        for i in range (0, 4):
+                            winningStones.append[(row-i, col+i)]
+                        return True, winningStones
+        return False, winningStones
+
+    def getNextPlayer(self):
+        if self.currentPlayer == 1:
+            self.currentPlayer = 3
+        else:
+            self.currentPlayer = 1
 
     def printWinner(self, player):
             print ("Spieler " + str(player) + " gewinnt!!!")
