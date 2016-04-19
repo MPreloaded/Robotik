@@ -1,2 +1,5 @@
 .idea/
-*.pyc
+src/*.pyc
+.project
+.pydevproject
+src/__pycache__
