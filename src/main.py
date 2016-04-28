@@ -33,7 +33,6 @@ def printList(myBoard):
 def turn(myBoard, player):
     while True:
         inp = getch()
-        print(ord(inp))
         if ord(inp) == 113:
             print("Exit")
             sys.exit()
