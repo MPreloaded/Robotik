@@ -40,7 +40,6 @@ class GamingBoard:
     @staticmethod
     def checkWin(player, list):
         won = False
-        winningStones=[]
 
         if not won:
             won, winningStones = GamingBoard._checkColWin(player, list)
@@ -54,7 +53,7 @@ class GamingBoard:
         if not won:
             won, winningStones = GamingBoard._checkDiagURWin(player, list)
 
-        return won, winningStones
+        return (won, winningStones)
 
 
     @staticmethod
@@ -70,8 +69,8 @@ class GamingBoard:
                 if count == 4:
                     for i in range (0, 4):
                         winningStones.append[(row, col-i)]
-                    return True
-        return False, winningStones
+                    return (True, winningStones)
+        return (False, winningStones)
 
     @staticmethod
     def _checkColWin(player, list):
@@ -86,8 +85,8 @@ class GamingBoard:
                 if count == 4:
                     for i in range (0, 4):
                         winningStones.append[(row-i, col)]
-                    return True
-        return False, winningStones
+                    return (True, winningStones)
+        return (False, winningStones)
 
     @staticmethod
     def _checkDiagULWin(player, list):
@@ -101,8 +100,8 @@ class GamingBoard:
                     if count == 4:
                         for i in range (0, 4):
                             winningStones.append[(row-i, col-i)]
-                        return True, winningStones
-        return False, winningStones
+                        return (True, winningStones)
+        return (False, winningStones)
 
     @staticmethod
     def _checkDiagURWin(player, list):
@@ -116,8 +115,8 @@ class GamingBoard:
                     if count == 4:
                         for i in range (0, 4):
                             winningStones.append[(row-i, col+i)]
-                        return True, winningStones
-        return False, winningStones
+                        return (True, winningStones)
+        return (False, winningStones)
 
     def getNextPlayer(self):
         if self.currentPlayer == 1:
