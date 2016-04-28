@@ -40,6 +40,7 @@ class GamingBoard:
     @staticmethod
     def checkWin(player, list):
         won = False
+        winningStones=[]
 
         if not won:
             won, winningStones = GamingBoard._checkColWin(player, list)
