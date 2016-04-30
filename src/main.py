@@ -33,21 +33,21 @@ def printList(myBoard):
 def turn(myBoard, player):
     while True:
         inp = getch()
-        if ord(inp) == 113:
-            print("Exit")
-            sys.exit()
-        elif ord(inp) == 67:
-            print("right")
-            myBoard.moveRight()
-        elif ord(inp) == 68:
-            print("left")
-            myBoard.moveLeft()
-        elif ord(inp) == 13:
-            try:
-                myBoard.throw(player)
-            except:
-                continue
-            break
+        print ord(inp)
+        while not myBoard.gameOver:
+            inp = getch()
+            if ord(inp) == 113:
+                sys.exit()
+            elif ord(inp) == 67:
+                myBoard.moveRight()
+            elif ord(inp) == 68:
+                myBoard.moveLeft()
+            elif ord(inp) == 13:
+                try:
+                    myBoard.throw(player)
+                except:
+                    continue
+                break
 
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.

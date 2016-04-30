@@ -32,7 +32,8 @@ class GamingBoard:
             for stone in winningStones:
                 self.board[stone[0][1]] = 2
             self.gameOver = True
-        self.getNextPlayer()
+        else:
+            self.getNextPlayer()
 
     ############
     # Private  #
