@@ -60,8 +60,8 @@ class GamingBoard:
     @staticmethod
     def _checkRowWin(player, list):
         winningStones = []
-        count = 0
         for row in range (0, len(list), 1):
+            count = 0
             for col in range (0, len((list)[0]), 1):
                 if list[row][col] == player:
                     count = count+1
@@ -76,8 +76,8 @@ class GamingBoard:
     @staticmethod
     def _checkColWin(player, list):
         winningStones = []
-        count = 0
         for col in range (0, len(list[0]), 1):
+            count = 0
             for row in range(0, len(list), 1):
                 if list[row][col] == player:
                     count = count + 1
@@ -108,7 +108,7 @@ class GamingBoard:
     def _checkDiagURWin(player, list):
         winningStones = []
         for row in range(0, len(list)-3, 1):
-            for col in range(len(list[0])-4, -1, -1):
+            for col in range(len(list[0])-1, 2, -1):
                 count = 0
                 for n in range (0, 4, 1):
                     if list[row+n][col-n] == player:
