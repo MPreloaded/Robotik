@@ -32,9 +32,9 @@ def printList():
     print
 
 def resetBoard():
-    for row in myBoard.board:
-        for val in row:
-            val = 0
+    for row in range (0, myBoard.rows):
+        for col in range (0, myBoard.columns):
+            myBoard.board[row][col] = 0
     myBoard.gameOver = False
     myBoard.currentPlayer = 1
 
