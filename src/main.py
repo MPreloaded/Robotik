@@ -1,5 +1,4 @@
 from FourWins import GamingBoard
-from MiniMax import MiniMax
 from LEDMatrix import LEDMatrix
 
 import sys, tty, termios
@@ -17,11 +16,8 @@ def main():
     printList()
     running = True
     while running:
-        print("Spieler 1 ist am Zug!")
-        turn(1)
-        printList()
-        print("Spieler 2 ist am Zug!")
-        turn(3)
+        print("Spieler", myBoard.currentPlayer, "ist am Zug!")
+        turn()
         printList()
 
 
@@ -38,7 +34,7 @@ def resetBoard():
     myBoard.gameOver = False
     myBoard.currentPlayer = 1
 
-def turn(player):
+def turn():
     while True:
         while not myBoard.gameOver:
             inp = getch()
@@ -52,7 +48,7 @@ def turn(player):
                 myBoard.moveLeft()
             elif ord(inp) == 13:
                 try:
-                    myBoard.throw(player)
+                    myBoard.throw(myBoard.currentPlayer)
                 except:
                     continue
         while myBoard.gameOver:
