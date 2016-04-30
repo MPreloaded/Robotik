@@ -30,7 +30,7 @@ class GamingBoard:
         won, winningStones = GamingBoard.checkWin(player, self.board)
         if won:
             for stone in winningStones:
-                self.board[stone[0], stone[1]] = 2
+                self.board[stone[0]][stone[1]] = 2
             self.gameOver = True
         else:
             self.getNextPlayer()
