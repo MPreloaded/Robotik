@@ -12,13 +12,7 @@ def main():
     myLEDMatrix = LEDMatrix(myBoard)
     myLEDMatrix.setDaemon(True)
     myLEDMatrix.start()
-
-    printList()
-    running = True
-    while running:
-        print("Spieler", myBoard.currentPlayer, "ist am Zug!")
-        turn()
-        printList()
+    turn()
 
 
 def printList():
@@ -35,7 +29,6 @@ def resetBoard():
     myBoard.currentPlayer = 1
 
 def turn():
-    while True:
         while not myBoard.gameOver:
             inp = getch()
             if ord(inp) == 113:

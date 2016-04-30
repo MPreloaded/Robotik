@@ -30,7 +30,7 @@ class GamingBoard:
         won, winningStones = GamingBoard.checkWin(player, self.board)
         if won:
             for stone in winningStones:
-                self.board[stone[0][1]] = 2
+                self.board[stone[0], stone[1]] = 2
             self.gameOver = True
         else:
             self.getNextPlayer()
@@ -69,7 +69,7 @@ class GamingBoard:
                     count = 0
                 if count == 4:
                     for i in range (0, 4):
-                        winningStones.append[(row, col-i)]
+                        winningStones.append((row, col-i))
                     return (True, winningStones)
         return (False, winningStones)
 
@@ -85,7 +85,7 @@ class GamingBoard:
                     count = 0
                 if count == 4:
                     for i in range (0, 4):
-                        winningStones.append[(row-i, col)]
+                        winningStones.append((row-i, col))
                     return (True, winningStones)
         return (False, winningStones)
 
@@ -100,7 +100,7 @@ class GamingBoard:
                         count = count + 1
                     if count == 4:
                         for i in range (0, 4):
-                            winningStones.append[(row-i, col-i)]
+                            winningStones.append((row-i, col-i))
                         return (True, winningStones)
         return (False, winningStones)
 
@@ -115,7 +115,7 @@ class GamingBoard:
                         count = count + 1
                     if count == 4:
                         for i in range (0, 4):
-                            winningStones.append[(row-i, col+i)]
+                            winningStones.append((row-i, col+i))
                         return (True, winningStones)
         return (False, winningStones)
 
