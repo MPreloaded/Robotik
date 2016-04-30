@@ -16,7 +16,7 @@ def main():
         while not myBoard.gameOver:
             turn()
             printList()
-        while myBoard.gameOver():
+        while myBoard.gameOver:
             inp = getch()
             if ord(inp) == 113:
                 sys.exit()
