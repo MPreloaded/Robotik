@@ -12,8 +12,16 @@ def main():
     myLEDMatrix = LEDMatrix(myBoard)
     myLEDMatrix.setDaemon(True)
     myLEDMatrix.start()
-    turn()
-
+    while True:
+        while not myBoard.gameOver:
+            turn()
+            printList()
+        while myBoard.gameOver():
+            inp = getch()
+            if ord(inp) == 113:
+                sys.exit()
+            elif ord(inp) == 114:
+                resetBoard()
 
 def printList():
     print ("1  2  3  4  5  6  7")
@@ -29,27 +37,22 @@ def resetBoard():
     myBoard.currentPlayer = 1
 
 def turn():
-        while not myBoard.gameOver:
-            inp = getch()
-            if ord(inp) == 113:
-                sys.exit()
-            elif ord(inp) == 114:
-                resetBoard()
-            elif ord(inp) == 67:
-                myBoard.moveRight()
-            elif ord(inp) == 68:
-                myBoard.moveLeft()
-            elif ord(inp) == 13:
-                try:
-                    myBoard.throw(myBoard.currentPlayer)
-                except:
-                    continue
-        while myBoard.gameOver:
-            inp = getch()
-            if ord(inp) == 114:
-                resetBoard()
-            elif ord(inp) == 113:
-                sys.exit()
+    while True:
+        inp = getch()
+        if ord(inp) == 113:
+            sys.exit()
+        elif ord(inp) == 114:
+            resetBoard()
+        elif ord(inp) == 67:
+            myBoard.moveRight()
+        elif ord(inp) == 68:
+            myBoard.moveLeft()
+        elif ord(inp) == 13:
+            try:
+                myBoard.throw(myBoard.currentPlayer)
+            except:
+                continue
+            break
 
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
