@@ -100,7 +100,7 @@ class GamingBoard:
                         count = count + 1
                     if count == 4:
                         for i in range (0, 4):
-                            winningStones.append((row-i, col-i))
+                            winningStones.append((row+i, col+i))
                         return (True, winningStones)
         return (False, winningStones)
 
@@ -108,14 +108,14 @@ class GamingBoard:
     def _checkDiagURWin(player, list):
         winningStones = []
         for row in range(0, len(list)-3, 1):
-            for col in range(len(list[0])-3, 0, -1):
+            for col in range(len(list[0])-4, -1, -1):
                 count = 0
                 for n in range (0, 4, 1):
                     if list[row+n][col-n] == player:
                         count = count + 1
                     if count == 4:
                         for i in range (0, 4):
-                            winningStones.append((row-i, col+i))
+                            winningStones.append((row+i, col-i))
                         return (True, winningStones)
         return (False, winningStones)
 
