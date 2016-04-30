@@ -55,11 +55,12 @@ def turn(player):
                     myBoard.throw(player)
                 except:
                     continue
-        inp = getch()
-        if ord(inp) == 114:
-            resetBoard()
-        elif ord(inp) == 113:
-            sys.exit()
+        while myBoard.gameOver:
+            inp = getch()
+            if ord(inp) == 114:
+                resetBoard()
+            elif ord(inp) == 113:
+                sys.exit()
 
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
