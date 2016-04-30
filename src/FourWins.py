@@ -62,7 +62,7 @@ class GamingBoard:
         winningStones = []
         count = 0
         for row in range (0, len(list), 1):
-            for col in range (0, len(list)[0], 1):
+            for col in range (0, len((list)[0]), 1):
                 if list[row][col] == player:
                     count = count+1
                 else:
