@@ -154,4 +154,5 @@ class LEDMatrix(Thread):
                 time.sleep(0.2)
                 self.clearBlink()
                 time.sleep(0.2)
+            time.sleep(0.2)
 
