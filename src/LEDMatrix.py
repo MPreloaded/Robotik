@@ -137,10 +137,6 @@ class LEDMatrix(Thread):
             for col in range(8, 23):
                 self.screen[row][col] = 0
 
-
-    def showWinner(self):
-
-
     def run(self):
         while True:
             self.refresh()
