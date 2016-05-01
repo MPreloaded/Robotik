@@ -4,7 +4,7 @@ import time
 from threading import Thread
 from _thread import start_new_thread
 class LEDMatrix(Thread):
-    delay = 0.000001
+    delay = 0.0003
 
     GPIO.setmode(GPIO.BCM)
 
@@ -138,9 +138,14 @@ class LEDMatrix(Thread):
                 self.screen[row][col] = 0
 
 
+    def showWinner(self):
+
+
     def run(self):
         while True:
             self.refresh()
+            if self.myBoard.gameOver:
+                self.showWinner()
 
     def blinkTimer(self):
         while True:
