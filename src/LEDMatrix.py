@@ -143,14 +143,15 @@ class LEDMatrix(Thread):
             self.refresh()
 
     def blinkTimer(self):
-        while True:       
-            blinkPos = self.myBoard.currentPosition
-            player = self.myBoard.currentPlayer
-            self.screen[0][2*blinkPos+7] = player
-            self.screen[0][2*blinkPos+8] = player
-            self.screen[1][2*blinkPos+7] = player
-            self.screen[1][2*blinkPos+8] =player
-            time.sleep(0.2)
-            self.clearBlink()
-            time.sleep(0.2)
+        while True:
+            while not self.myBoard.gameOver:
+                blinkPos = self.myBoard.currentPosition
+                player = self.myBoard.currentPlayer
+                self.screen[0][2*blinkPos+7] = player
+                self.screen[0][2*blinkPos+8] = player
+                self.screen[1][2*blinkPos+7] = player
+                self.screen[1][2*blinkPos+8] =player
+                time.sleep(0.2)
+                self.clearBlink()
+                time.sleep(0.2)
 
