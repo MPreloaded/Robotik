@@ -140,8 +140,6 @@ class LEDMatrix(Thread):
     def run(self):
         while True:
             self.refresh()
-            if self.myBoard.gameOver:
-                self.showWinner()
 
     def blinkTimer(self):
         while True:
