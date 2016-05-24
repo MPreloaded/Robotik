@@ -5,8 +5,8 @@ from FourWins import GamingBoard
 """
 
 class MiniMax:
-    def __init__(self):
-        pass
+    def __init__(self, depth):
+        self.maxDepth = depth
 
     def minimaxAI(self, list, player):
         print ("analyzing board...")
@@ -32,8 +32,6 @@ class MiniMax:
         zu "überleben".
         """
         if (self._checkListFull(list) or self._checkGameOver(list)):
-            if (self._checkListFull(list)):
-                print ("One board full")
             return (self.score(player, list, column) + depth , -1)
 
         value = -1000
@@ -65,7 +63,7 @@ class MiniMax:
 
             if (-new_value) > value:
                 value = new_value
-                best_turn = index
+                best_turn = i
 
             #at the end of calculation redo changes
             list[index][i] = 0
@@ -129,7 +127,7 @@ class MiniMax:
     
     def _checkListFull(self, list):
         # If one column has the top spot free the board is not full
-        for j in range(0, len(list[0])-1, 1):
+        for j in range(0, len(list[0]), 1):
             if list[0][j] == 0:
                 return False
     

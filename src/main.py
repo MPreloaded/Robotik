@@ -1,5 +1,5 @@
 from FourWins import GamingBoard
-from MiniMax import MiniMax
+from MiniMax2 import MiniMaxDepth
 #from LEDMatrix import LEDMatrix
 
 import sys, tty, termios
@@ -7,9 +7,10 @@ import sys, tty, termios
 def main():
     rows = 6
     columns = 7
+    maxDepth = 5
     global myBoard
     myBoard = GamingBoard(rows, columns)
-    myAI = MiniMax()
+    myAI = MiniMaxDepth(maxDepth)
     
     #myLEDMatrix = LEDMatrix(myBoard)
     #myLEDMatrix.setDaemon(True)
@@ -19,8 +20,10 @@ def main():
             if (myBoard.currentPlayer == 1):    
                 turn()
             else :
-                col = myAI.minimaxAI(myBoard.board, 3)
-                myBoard.currentPosition = col
+                col = myAI.getMove(myBoard.board, 3)
+                if (col == -1):
+                    sys.exit()
+                myBoard.currentPosition = col+1
                 myBoard.throw(myBoard.currentPlayer)
             printList()
         """

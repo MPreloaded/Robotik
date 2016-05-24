@@ -137,5 +137,3 @@ class GamingBoard:
         if self.currentPosition > 1:
             self.currentPosition = self.currentPosition-1
             
-    def setCurrentPosition(self, newCurrent):
-        self.currentPosition = newCurrent
