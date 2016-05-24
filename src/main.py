@@ -1,20 +1,22 @@
+# -*- coding: utf-8 -*-
+
 from FourWins import GamingBoard
 from MiniMax2 import MiniMaxDepth
-#from LEDMatrix import LEDMatrix
+from LEDMatrix import LEDMatrix
 
 import sys, tty, termios
 
 def main():
     rows = 6
     columns = 7
-    maxDepth = 5
+    maxDepth = 1
     global myBoard
     myBoard = GamingBoard(rows, columns)
     myAI = MiniMaxDepth(maxDepth)
     
-    #myLEDMatrix = LEDMatrix(myBoard)
-    #myLEDMatrix.setDaemon(True)
-    #myLEDMatrix.start()
+    myLEDMatrix = LEDMatrix(myBoard)
+    myLEDMatrix.setDaemon(True)
+    myLEDMatrix.start()
     while True:
         while not myBoard.gameOver:
             if (myBoard.currentPlayer == 1):    
@@ -26,14 +28,12 @@ def main():
                 myBoard.currentPosition = col+1
                 myBoard.throw(myBoard.currentPlayer)
             printList()
-        """
         while myBoard.gameOver:
             inp = getch()
             if ord(inp) == 113:
                 sys.exit()
             elif ord(inp) == 114:
                 resetBoard()
-        """
         sys.exit()
 
 def printList():
@@ -50,6 +50,7 @@ def resetBoard():
     myBoard.currentPlayer = 1
 
 def turn():
+    '''
     loop = True
     while loop:
         inp = input("Packe einen Stein in Spalte: ")
@@ -59,8 +60,7 @@ def turn():
             loop = False
         else :
             print("Keine gültige Eingabe!")
-    
-    """
+    '''
     while True:
         inp = getch()
         if ord(inp) == 113:
@@ -77,8 +77,7 @@ def turn():
             except:
                 continue
             break
-    """
-"""
+
 def getch():
     # POSIX system. Create and return a getch that manipulates the tty.
     fd = sys.stdin.fileno()
@@ -89,7 +88,6 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
-"""
 
 if __name__ == "__main__":
     main()

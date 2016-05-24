@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from FourWins import GamingBoard
 import copy
 
@@ -67,9 +69,17 @@ class MiniMaxDepth:
             Redo changes to the board for the next loop iteration
             """
             board[index][i] = 0
+            self.printBoard(board)
         
         return (bestValue, bestTurn)
-            
+
+    def printBoard(self, board):
+        print ("Redo")
+        print ("1  2  3  4  5  6  7")
+        for i in range (0, 6, 1):
+            print (board[i])
+        print
+
     def _checkBoardFull(self, board):
         """
         If one spot is free in the top row the board is not full
