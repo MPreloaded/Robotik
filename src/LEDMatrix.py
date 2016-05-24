@@ -7,6 +7,7 @@ class LEDMatrix(Thread):
     delay = 0.0003
 
     GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
 
     # GPIOs for color management. 1 are the 8 rows on the top, 2 8 rows on the bottom
     red1_pin = 17
