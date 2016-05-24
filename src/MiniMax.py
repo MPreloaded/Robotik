@@ -32,7 +32,8 @@ class MiniMax:
         zu "überleben".
         """
         if (self._checkListFull(list) or self._checkGameOver(list)):
-            print ("End of analyzing one path")
+            if (self._checkListFull(list)):
+                print ("One board full")
             return (self.score(player, list, column) + depth , -1)
 
         value = -1000
@@ -43,15 +44,15 @@ class MiniMax:
             if list[0][i] != 0:
                 #print "DEBUG: column " + str(i) + "is full"
                 continue
-            index = len(list[0])-1
+            
+            index = 0
 
             #apply possible turn
-            for sublist in list:
-                if sublist[i] == 0:
-                    sublist[i] = player
+            for j in range(len(list)-1, -1, -1):
+                if list[j][i] == 0:
+                    list[j][i] = player
+                    index = j
                     break
-                else:
-                    index = index - 1
 
             #determine next player
             next_player = 0
