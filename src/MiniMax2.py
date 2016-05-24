@@ -69,8 +69,7 @@ class MiniMaxDepth:
             Redo changes to the board for the next loop iteration
             """
             board[index][i] = 0
-            self.printBoard(board)
-        
+
         return (bestValue, bestTurn)
 
     def printBoard(self, board):

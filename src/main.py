@@ -34,7 +34,6 @@ def main():
                 sys.exit()
             elif ord(inp) == 114:
                 resetBoard()
-        sys.exit()
 
 def printList():
     print ("1  2  3  4  5  6  7")
