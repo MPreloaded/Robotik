@@ -5,25 +5,35 @@ from FourWins import GamingBoard
 """
 
 class MiniMax:
-    def __init__(self, depth):
-        self.depth = depth
+    def __init__(self):
+        pass
 
     def minimaxAI(self, list, player):
         print ("analyzing board...")
         ai_list = self.copyList(list)
-        value, col = self.max(player, self.depth, ai_list)
+        value, col = self.max(player, 0, ai_list)
         
-        for row in range(len(list)-1, -1, -1):
-            if list[row][col] == 0:
-                list[row][col] = player
-                break
+        return col
             
     """
        max part of the minimax-algorithm
     """
     def max(self, player, depth, list, column=-1):
-        if depth == 0:
-            return self.score(player, list, column)
+        """
+        Die Abbruchbedingungen sind:
+         - Board voll
+         - Einer der Spieler hat gewonnen
+        Sollte eine (oder mehrere) der Abbruchbedingungen eintreten, so 
+        soll das Board bewertet werden und der Wert zurückgegeben werden.
+        
+        Für eine bessere KI muss hierbei auch die Suchtiefe mitgegeben werden.
+        Dies sorgt dafür, dass die KI auch bei einem aussichtslosen Board (wie es beispielsweise
+        anfangs der Fall sein kann) immer noch bestmöglich spielt, und versucht möglichst lange
+        zu "überleben".
+        """
+        if (self._checkListFull(list) or self._checkGameOver(list)):
+            print ("End of analyzing one path")
+            return (self.score(player, list, column) + depth , -1)
 
         value = -1000
         best_turn = -1
@@ -33,12 +43,12 @@ class MiniMax:
             if list[0][i] != 0:
                 #print "DEBUG: column " + str(i) + "is full"
                 continue
-            index = len(list)-1
+            index = len(list[0])-1
 
             #apply possible turn
             for sublist in list:
-                if sublist[index] == 0:
-                    sublist[index] = player
+                if sublist[i] == 0:
+                    sublist[i] = player
                     break
                 else:
                     index = index - 1
@@ -50,7 +60,7 @@ class MiniMax:
             else:
                 next_player = 1
 
-            new_value, bin = self.max(next_player, depth-1, list, i)
+            new_value, bin = self.max(next_player, (depth+1), list, i)
 
             if (-new_value) > value:
                 value = new_value
@@ -67,9 +77,7 @@ class MiniMax:
     def score(self, player, list, column):
         won, winningStones = GamingBoard.checkWin(player,list)
         if won:
-            return 50
-        elif self._checkPrevent(player, list, column):
-            return 40
+            return 100
         else:
             return 0
         """elif self._checkThree(player, list):
@@ -117,21 +125,23 @@ class MiniMax:
             list[row][column] = 3
             
         return tmp
+    
+    def _checkListFull(self, list):
+        # If one column has the top spot free the board is not full
+        for j in range(0, len(list[0])-1, 1):
+            if list[0][j] == 0:
+                return False
+    
+        return True
+    
+    def _checkGameOver(self, list):
+        won, winningStones = GamingBoard.checkWin(1, list)
+        if(won):
+            return True
         
-if __name__ == "__main__":
-    import main
-    rows = 6
-    columns = 7
-    depth = 2
-    myBoard = GamingBoard(rows, columns)
-    myAI = MiniMax(depth)
-
-    main.printList(myBoard)
-    running = True
-    while running:
-        print("Spieler 1 ist am Zug!")
-        main.turn(myBoard, 1)
-        main.printList(myBoard)
-        print("KI ist am Zug!")
-        myAI.minimaxAI(myBoard.board, 3)
-        main.printList(myBoard)
+        won, winningStones = GamingBoard.checkWin(3, list)
+        if(won):
+            return True
+        
+        return False    
+        
