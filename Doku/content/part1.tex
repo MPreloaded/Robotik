@@ -40,3 +40,28 @@ Auf Grundlage dieser Informationen ist es möglich für eine KI den Minimax-Algo
 
 Bei dem Minimax-Algorithmus handelt es sich um einen Gewinnoptimierungsalgorithmus, der über Heuristiken verschiedene Spielsituationen auswertet und den jeweilig besten Zug auswählt.
 Für \glqq Vier Gewinnt\grqq ~muss der Algorithmus abgewandelt werden, da der Minimax-Algorithmus in seinen Grundzügen darauf optimiert ist einen maximierenden und einen minimierenden Spieler zu analysieren. Da bei \glqq Vier Gewinnt\grqq ~allerdings beide Spieler maximieren, muss bei der Analyse jeweils darauf geachtet werden, dass das Ergebnis des letzten Spielers negiert wird. Diese Abwandlung wird auch Negamax-Algorithmus genannt.
+
+\begin{algorithm}
+\caption{Negamax-Algorithmus}
+\begin{algorithmic}[1]
+\Procedure{NegaMax}{player, depth}
+\If {$ depth == 0$~\textbf{or}~$\textit{noPlayableTurns}$} 
+\State \Return $\textit{score(player)}$
+\EndIf
+\State $\textit{maxValue} \gets -\textit{infinity}$
+\State $\textit{getPlayableTurns()}$
+\While {$\textit{movableTurnsLeft}$}
+\State $\textit{makeTurn()}$
+\State $\textit{value} \gets -\textit{NegaMax(otherPlayer, depth-1)}$
+\State $\textit{redoTurn()}$
+\If {$\textit{value} \textgreater \textit{maxValue}$}
+\State $\textit{maxValue} \gets \textit{value}$
+\If {$\textit{depth} = \textit{requiredDepth}$}
+\State $\textit{savedTurn} \gets \textit{turn}$
+\EndIf
+\EndIf
+\EndWhile
+\State \Return $\textit{maxValue}$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
