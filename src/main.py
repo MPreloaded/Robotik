@@ -21,13 +21,14 @@ def main():
 
     while True:
         mode = getch()
+        myBoard.gameOver = False
 
         # 1 Player Mode
         if ord(mode) == 49:
             while not myBoard.gameOver:
-                if (myBoard.currentPlayer == 1):
+                if myBoard.currentPlayer == 1:
                     turn()
-                else :
+                else:
                     col = myAI.getMove(myBoard.board, 3)
                     if (col == -1):
                         sys.exit()
@@ -68,7 +69,6 @@ def resetBoard():
     for row in range (0, myBoard.rows):
         for col in range (0, myBoard.columns):
             myBoard.board[row][col] = 0
-    myBoard.gameOver = False
     myBoard.currentPlayer = 1
 
 def turn():
