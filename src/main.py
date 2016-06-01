@@ -18,23 +18,43 @@ def main():
     myLEDMatrix = LEDMatrix(myBoard)
     myLEDMatrix.setDaemon(True)
     myLEDMatrix.start()
+
     while True:
-        while not myBoard.gameOver:
-            if (myBoard.currentPlayer == 1):    
-                turn()
-            else :
-                col = myAI.getMove(myBoard.board, 3)
-                if (col == -1):
+        mode = inp(getch());
+        print(ord(mode));
+
+        # 1 Player Mode
+        if ord(mode) == 1:
+            while not myBoard.gameOver:
+                if (myBoard.currentPlayer == 1):
+                    turn()
+                else :
+                    col = myAI.getMove(myBoard.board, 3)
+                    if (col == -1):
+                        sys.exit()
+                    myBoard.currentPosition = col+1
+                    myBoard.throw(myBoard.currentPlayer)
+                printList()
+            while myBoard.gameOver:
+                inp = getch()
+                if ord(inp) == 113:
                     sys.exit()
-                myBoard.currentPosition = col+1
-                myBoard.throw(myBoard.currentPlayer)
-            printList()
-        while myBoard.gameOver:
-            inp = getch()
-            if ord(inp) == 113:
-                sys.exit()
-            elif ord(inp) == 114:
-                resetBoard()
+                elif ord(inp) == 114:
+                    resetBoard()
+
+        # 2 Player mode
+        elif ord(mode) == 2:
+            while not myBoard.gameOver:
+                if (myBoard.currentPlayer == 1):
+                    turn()
+                else:
+                    turn()
+            while myBoard.gameOver:
+                inp = getch()
+                if ord(inp) == 113:
+                    sys.exit()
+                elif ord(inp) == 114:
+                    resetBoard()
 
 def printList():
     print ("1  2  3  4  5  6  7")
