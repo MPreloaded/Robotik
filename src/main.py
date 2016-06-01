@@ -7,7 +7,7 @@ import sys, tty, termios
 def main():
     rows = 6
     columns = 7
-    maxDepth = 4
+    maxDepth = 6
     
     global myBoard
     myBoard = GamingBoard(rows, columns)
