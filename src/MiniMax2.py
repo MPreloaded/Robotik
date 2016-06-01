@@ -100,7 +100,7 @@ class MiniMaxDepth:
             """
             board[index][i] = 0
 
-        return (bestValue, bestTurn)
+        return bestValue
 
     def printBoard(self, board):
         print ("Redo")
