@@ -20,6 +20,7 @@ def main():
     myLEDMatrix.start()
 
     while True:
+        mode = None
         mode = getch()
         myBoard.gameOver = False
 
