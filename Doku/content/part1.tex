@@ -73,7 +73,8 @@ Bei dem Minimax-Algorithmus handelt es sich um einen Gewinnoptimierungsalgorithm
 Für \glqq Vier Gewinnt\grqq ~muss der Algorithmus abgewandelt werden, da der Minimax-Algorithmus in seinen Grundzügen darauf optimiert ist einen maximierenden und einen minimierenden Spieler zu analysieren. Da bei \glqq Vier Gewinnt\grqq ~allerdings beide Spieler maximieren, muss bei der Analyse jeweils darauf geachtet werden, dass das Ergebnis des letzten Spielers negiert wird. Diese Abwandlung wird auch Negamax-Algorithmus genannt.
 
 \begin{algorithm}
-\caption{Negamax-Algorithmus}
+\floatname{algorithm}{Algorithmus}
+\caption{Negamax-Algorithmus} \label{algo:negamax}
 \begin{algorithmic}[1]
 \Procedure{NegaMax}{player, depth}
 \If {$ depth == 0$~\textbf{or}~$\textit{noPlayableTurns}$} 
@@ -95,4 +96,7 @@ Für \glqq Vier Gewinnt\grqq ~muss der Algorithmus abgewandelt werden, da der Mi
 \State \Return $\textit{maxValue}$
 \EndProcedure
 \end{algorithmic}
-\end{algorithm}.
+\end{algorithm}
+
+In Algorithmus \ref{algo:negamax} wird der Algortihmus für den NegaMax als Pseudocode dargestellt.
+Auf Grund der begrenzten Rechenkapazitäten, die der Raspberry Pi besitzt, und der hohe Rechenaufwand, der bei einer großen Suchtiefe entsteht, wurde sich dafür entschieden, die Suchtiefe im Rahmen des Projektes auf 4 zu begrenzen. Dabei benötigt der Raspberry Pi immer noch etwa 3 Sekunden, um die Berechnung des Zuges durchzuführen, allerdings liegt diese Zeit in einem akzeptablen Bereich. Da bei dieser Suchtiefe vor allen in den ersten Zügen die Bewertung der einzelnen Spielfeldsituationen teilweise identisch ist, wurde für diesen Fall ein Zufallsmechanismus implementiert, der verhindert, dass die KI deterministisch auszutricksen ist. Insgesamt spielt die KI unter diesen Umständen nicht fehlerfrei, allerdings stellt sie für vor allem ungeübte Spieler eine geeignete Herausforderung da.

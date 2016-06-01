@@ -43,7 +43,6 @@
 % --- Paketeinstellungen ---
 \input{include/package-settings}
 
-
 % ---------------------------
 % Allgemeine Einstellungen
 % ---------------------------
@@ -54,17 +53,27 @@
 % --- Angabe des Speicherorts von Bildern ---
 \graphicspath{{images/}}							% NUR in Verbindung mit graphicx!
 
-\title{Vier Gewinnt auf einer LED-Matrix}
-\author{Sven Durchholz \\ Julian Kaping}
-
-
 % ---------------------------
 % Beginn des Dokuments
 % ---------------------------
-
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+	\centering
+	{\scshape\LARGE DHBW Mannheim \par}
+	\vspace{1cm}
+	{\scshape\Large Robotik Projekt\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Vier Gewinnt auf einer LED-Matrix\par}
+	\vspace{2cm}
+	{\Large\itshape Sven Durchholz und Julian Kaping\par}
+	\vspace{1cm}
+	\includegraphics[width=0.9\textwidth]{inAction.jpg}\par\vspace{1cm}
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
 	
 	% ---------------------------
 	% Kapitel und Abschnitte
