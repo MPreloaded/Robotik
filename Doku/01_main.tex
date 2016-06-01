@@ -1,0 +1,86 @@
+% !TeX encoding 	= utf8
+% !TeX program 		= pdflatex
+% !TeX spellcheck 	= de-DE
+% !BIB = biber
+
+\RequirePackage[l2tabu, orthodox]{nag}			% Sucht nach Fehlern und gibt Warnung aus (.log)
+
+% ---------------------------
+% Dokumentklasse
+% ---------------------------
+% Mögliche Optionen:
+%	- parskip = half; full, none
+% 	- Schriftgröße (11pt [default], 12pt)
+%	- Papiergröße (a4paper [default], a5paper)
+%	- zweiseitig (twoside, oneside [default])	 
+% ---------------------------
+
+\documentclass[
+    12pt,										% Schriftgröße
+    a4paper,									% Papiergröße
+    parskip 	= half,							% Definiert Absätze
+    listof		= totoc,						% Abb.- und Tab.-verzeichnis
+    bibliography= totoc,						% Quellenverzeichnis
+%    twoside,									% Zweiseitiger Druck
+    version 	= last,							% Version
+%    heading		= small,
+	numbers		= noenddot,
+]{article}										% Komascript (vorzugsweise zu verwenden)
+
+% ---------------------------
+% Einbinden von Packages
+% ---------------------------
+\input{include/packages}
+
+
+% ---------------------------
+% Einstellungen von Optionen
+% ---------------------------
+
+% --- Macro importieren ---
+\input{include/macros}
+
+% --- Paketeinstellungen ---
+\input{include/package-settings}
+
+
+% ---------------------------
+% Allgemeine Einstellungen
+% ---------------------------
+
+% --- Stil der Seitenzahlen ----
+\pagenumbering{Roman}							% Möglichkeiten: arabic [default], Roman, Alpha, gobble (keine Nummerierung)
+
+% --- Angabe des Speicherorts von Bildern ---
+\graphicspath{{images/}}							% NUR in Verbindung mit graphicx!
+
+% ---------------------------
+% Beginn des Dokuments
+% ---------------------------
+
+\begin{document}
+	
+	% ---------------------------
+	% Kapitel und Abschnitte
+	% ---------------------------
+	\pagenumbering{arabic}
+	\onehalfspacing
+	
+	
+	\include{content/part1}
+	
+	% ---------------------------
+	% Quellenverzeichnis
+	% ---------------------------
+	\pagenumbering{Roman}						% Römische Nummerierung
+	\setcounter{page}{8} 						% Fortsetzen der Nummerierung
+
+	\printbibliography 								% BiBLaTeX, Biber
+	
+	% ---------------------------
+	% Anhang
+	% ---------------------------
+	\appendix
+	\include{include/anhang}
+	
+\end{document}
