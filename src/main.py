@@ -20,9 +20,7 @@ def main():
     myLEDMatrix.start()
 
     while True:
-        mode = None
         mode = getch()
-        myBoard.gameOver = False
 
         # 1 Player Mode
         if ord(mode) == 49:
@@ -71,6 +69,9 @@ def resetBoard():
         for col in range (0, myBoard.columns):
             myBoard.board[row][col] = 0
     myBoard.currentPlayer = 1
+    myBoard.currentPosition = 4
+    myBoard.gameOver = False
+
 
 def turn():
     '''
@@ -84,7 +85,7 @@ def turn():
         else :
             print("Keine gültige Eingabe!")
     '''
-    while True:
+    while not myBoard.gameOver:
         inp = getch()
         if ord(inp) == 113:
             sys.exit()
