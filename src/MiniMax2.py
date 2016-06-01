@@ -9,6 +9,7 @@ class MiniMaxDepth:
     def getMove(self, board, player):
         print("DEBUG: Analyzing board...")
         copied = copy.deepcopy(board)
+                    
         value, col = self._maximize(player, 0, copied)
         
         return col
@@ -16,8 +17,9 @@ class MiniMaxDepth:
     def _maximize(self, player, depth, board, column=-1):
         
         if((depth >= self.maxDepth) or self._checkBoardFull(board) or self._checkGameOver(board)):
-            score = self._score(player, board, column)
-            return (score - depth, -1)
+            lastPlayer = 1 if player == 3 else 3
+            score = self._score(lastPlayer, board, column)
+            return (-score - depth, -1)
         
         bestValue = -1000
         bestTurn = -1
@@ -61,18 +63,33 @@ class MiniMaxDepth:
             """
             if (-moveValue) > bestValue:
                 bestValue = (-moveValue)
-                bestTurn = i
+                bestTurn = i 
                 
             """
             Redo changes to the board for the next loop iteration
             """
             board[index][i] = 0
+            
+            """
+            After a winning move was found all other moves are obsolete
+
+            Does break mean something else under python???
+            -> Seems to break the analyzer
+            if bestValue > 500:
+                break;
+            """
+            
+            """if bestValue > 500:
+                for i in range (0, len(board), 1):
+                    print (board[i])
+                print ("")
+            """
         
         return (bestValue, bestTurn)
             
     def _checkBoardFull(self, board):
         """
-        If one spot is free in the top row the board is not full
+        If at least one spot is free in the top row the board is not full
         """
         for j in range(0, len(board[0]), 1):
             if board[0][j] == 0:
@@ -91,15 +108,13 @@ class MiniMaxDepth:
         
         return False 
     
-    def _score(self, player, board, column):
-        actPlayer = 3 if player == 1 else 1
-        
-        won, tmp = GamingBoard.checkWin(actPlayer, board)
+    def _score(self, player, board, column):        
+        won, tmp = GamingBoard.checkWin(player, board)
         
         if (won):
-            return -500
-        elif (self._checkPrevent(actPlayer, board, column)):
-            return -400
+            return 500
+        elif (self._checkPrevent(player, board, column)):
+            return 400
             
         return 0
         
@@ -128,4 +143,9 @@ class MiniMaxDepth:
         board[row][column] = player
             
         return prevented
+    
+    def _printBoard(self, board):
         
+        for i in range (0, len(board), 1):
+            print (board[i])
+        print ("")

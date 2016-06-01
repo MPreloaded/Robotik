@@ -7,7 +7,8 @@ import sys, tty, termios
 def main():
     rows = 6
     columns = 7
-    maxDepth = 5
+    maxDepth = 4
+    
     global myBoard
     myBoard = GamingBoard(rows, columns)
     myAI = MiniMaxDepth(maxDepth)
