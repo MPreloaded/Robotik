@@ -21,10 +21,9 @@ def main():
 
     while True:
         mode = getch()
-        print(ord(mode))
 
         # 1 Player Mode
-        if ord(mode) == 1:
+        if ord(mode) == 49:
             while not myBoard.gameOver:
                 if (myBoard.currentPlayer == 1):
                     turn()
@@ -43,7 +42,7 @@ def main():
                     resetBoard()
 
         # 2 Player mode
-        elif ord(mode) == 2:
+        elif ord(mode) == 50:
             while not myBoard.gameOver:
                 if (myBoard.currentPlayer == 1):
                     turn()
@@ -55,6 +54,9 @@ def main():
                     sys.exit()
                 elif ord(inp) == 114:
                     resetBoard()
+
+        elif ord(mode) == 113:
+            sys.exit()
 
 def printList():
     print ("1  2  3  4  5  6  7")
