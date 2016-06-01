@@ -1,0 +1,97 @@
+%-------------------------------------
+%-- Informationen für das Deckblatt --
+%-------------------------------------
+\newcommand{\titel}{\textbf{Studienarbeit}}
+\newcommand{\thema}{Real World Integration}
+\newcommand{\studiengang}{Informationstechnik}
+\newcommand{\dhbw}{Dualen Hochschule Baden-Württemberg Mannheim}
+\newcommand{\dlr}{Deutsches Zentrum für Luft- und Raumfahrt e. V.}
+\newcommand{\jahrgang}{\textit{MA-TINF13ITIN}}
+
+\newcommand{\praxis}{von hier bis da}
+\newcommand{\betreuer}{Prof. Dr. Harald Kornmayer}
+\newcommand{\abgabe}{abgabe ist irgendwann}
+
+\newcommand{\autorA}{\textbf{Tobias Haase}}
+\newcommand{\matrikelnrA}{4577806}
+\newcommand{\autorB}{\textbf{Sven Durchholz}}
+\newcommand{\matrikelnrB}{6002482}
+\newcommand{\autorC}{\textbf{Phillipp Mevenkamp}}
+\newcommand{\matrikelnrC}{9893674}
+\newcommand{\autorD}{\textbf{Hendrik Abbenhaus}}
+\newcommand{\matrikelnrD}{1234567}
+
+%----------------------------------
+%-- Vordefinierte Formatierungen --
+%----------------------------------
+
+%format: \setEquation{gleichung}{label for references}
+\newcommand{\setEquation}[2]
+{
+	\begin{figure}[!htbp]
+		\centering
+		\begin{equation}
+			#1
+		\end{equation}
+		\label{eq:#2}
+	\end{figure}
+}
+
+%format: \setPicture{path}{description}{label for references}
+\newcommand{\setPicture}[3]{
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=\textwidth]{#1}
+		\caption{#2}
+		\label{fig:#3}
+	\end{figure}
+}
+
+%format: \setPicture{path}{width}{description}{label for references}
+\newcommand{\setPictureWidth}[4]{
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=#2]{#1}
+		\caption{#3}
+		\label{fig:#4}
+	\end{figure}
+}
+
+%format: \setPictureSourced{path}{width}{description}{label for references}{source}
+\newcommand{\setPictureSourced}[5]{
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=#2]{#1}
+		\caption[#3]{#3\protect\footnotemark}
+		\label{fig:#4}
+	\end{figure}
+	\footnotetext{Quelle: \citeauthor{#5}, \citetitle{#5}}
+}
+
+%format: \setTable{path}{description}{label for references}
+\newcommand{\setTable}[3]{
+	\begin{figure}[!htbp]
+		\centering
+		\input{#1}
+		\caption{#2}
+		\label{#3}
+	\end{figure}
+}
+
+%format: \refPicture{label for references}
+\newcommand{\refPicture}[1]{\figurename~\ref{fig:#1}}
+\newcommand{\refTable}[1]{\tablename~\ref{tab:#1}}
+\newcommand{\refChapter}[1]{Kapitel \ref{#1}}
+\newcommand{\refEquation}[1]{Gleichung \ref{eq:#1}}
+
+
+% ---------Schriftformatierungen------------------ 
+\newcommand{\Name}[1]{\emph{#1}}
+\newcommand{\Fachbegriff}[1]{\textbf{#1}} 
+\newcommand{\Code}[1]{\texttt{#1}}
+\newcommand{\Datei}[1]{\texttt{#1}}
+\newcommand{\Datentyp}[1]{\textsf{#1}}
+
+% ---------- Other -----------
+\newcommand{\cpp}{C\texttt{++}}
+\newcommand{\csh}{C\texttt{\#}}

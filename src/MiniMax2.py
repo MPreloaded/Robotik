@@ -2,6 +2,7 @@
 
 from FourWins import GamingBoard
 import copy
+import random
 
 class MiniMaxDepth:
     
@@ -11,15 +12,51 @@ class MiniMaxDepth:
     def getMove(self, board, player):
         print("DEBUG: Analyzing board...")
         copied = copy.deepcopy(board)
-        value, col = self._maximize(player, 0, copied)
+                    
+        values = {}            
+        for i in range(0, len(copied[0]), 1):
+            if copied[0][i] != 0:
+                continue
+            
+            nextPlayer = 3 if player == 1 else 1
+            
+            row = -1
+            for j in range(len(copied)-1, -1, -1):
+                if copied[j][i] == 0:
+                    copied[j][i] = player
+                    row= j
+                    break
+            
+            value = self._maximize(nextPlayer, 1, copied, i)
+            
+            print (i+1, value)
+            
+            values[i] = value
+            
+            copied[j][i] = 0        
+        
+        bestValue = -1000
+        bestTurns = []
+        for i in values.keys():
+            if -values[i] > bestValue:
+                bestTurns = []
+                bestValue = -values[i]
+                bestTurns.append(i)
+            elif -values[i] == bestValue:
+                bestTurns.append(i)
+        
+        r = random.randint(0, len(bestTurns)-1)
+        
+        col = bestTurns[r]
         
         return col
     
-    def _maximize(self, player, depth, board, column=-1):
+    def _maximize(self, player, depth, board, column):
         
-        if((depth >= self.maxDepth) or self._checkBoardFull(board) or self._checkGameOver(board)):
-            score = self._score(player, board, column)
-            return (score - depth, -1)
+        if((depth >= self.maxDepth) or self._checkBoardFull(board) or self._checkGameOver(board, player)):
+            lastPlayer = 1 if player == 3 else 3
+            score = self._score(lastPlayer, board, column)
+            return (-score - depth)
         
         bestValue = -1000
         bestTurn = -1
@@ -44,26 +81,19 @@ class MiniMaxDepth:
             """
             Determine next player
             """
-            nextPlayer = 0
-            if player == 1: 
-                nextPlayer = 3
-            else:
-                nextPlayer = 1
+            nextPlayer = 3 if player == 1 else 1
                 
             """
             Calculate best value for the next possible moves
             """
-            moveValue, tmp = self._maximize(nextPlayer, (depth+1), board, i)
+            moveValue = self._maximize(nextPlayer, (depth+1), board, i)
             
-            """ DEBUG OUTPUT """
-            if (depth == 0) :
-                print (i+1, -moveValue)
             """
             Check whether move value is better or worse
             """
             if (-moveValue) > bestValue:
                 bestValue = (-moveValue)
-                bestTurn = i
+                bestTurn = i 
                 
             """
             Redo changes to the board for the next loop iteration
@@ -79,9 +109,10 @@ class MiniMaxDepth:
             print (board[i])
         print
 
+
     def _checkBoardFull(self, board):
         """
-        If one spot is free in the top row the board is not full
+        If at least one spot is free in the top row the board is not full
         """
         for j in range(0, len(board[0]), 1):
             if board[0][j] == 0:
@@ -89,26 +120,22 @@ class MiniMaxDepth:
     
         return True
     
-    def _checkGameOver(self, board):
-        won, winningStones = GamingBoard.checkWin(1, board)
-        if(won):
-            return True
+    def _checkGameOver(self, board, player):
+        lastPlayer = 3 if player == 1 else 1
         
-        won, winningStones = GamingBoard.checkWin(3, board)
+        won, winningStones = GamingBoard.checkWin(lastPlayer, board)
         if(won):
             return True
         
         return False 
     
-    def _score(self, player, board, column):
-        actPlayer = 3 if player == 1 else 1
-        
-        won, tmp = GamingBoard.checkWin(actPlayer, board)
+    def _score(self, player, board, column):        
+        won, tmp = GamingBoard.checkWin(player, board)
         
         if (won):
-            return -500
-        elif (self._checkPrevent(actPlayer, board, column)):
-            return -400
+            return 500
+        elif (self._checkPrevent(player, board, column)):
+            return 400
             
         return 0
         
@@ -137,4 +164,9 @@ class MiniMaxDepth:
         board[row][column] = player
             
         return prevented
+    
+    def _printBoard(self, board):
         
+        for i in range (0, len(board), 1):
+            print (board[i])
+        print ("")

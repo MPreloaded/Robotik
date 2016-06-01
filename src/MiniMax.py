@@ -24,12 +24,12 @@ class MiniMax:
          - Board voll
          - Einer der Spieler hat gewonnen
         Sollte eine (oder mehrere) der Abbruchbedingungen eintreten, so 
-        soll das Board bewertet werden und der Wert zurückgegeben werden.
+        soll das Board bewertet werden und der Wert zurueckgegeben werden.
         
-        Für eine bessere KI muss hierbei auch die Suchtiefe mitgegeben werden.
-        Dies sorgt dafür, dass die KI auch bei einem aussichtslosen Board (wie es beispielsweise
-        anfangs der Fall sein kann) immer noch bestmöglich spielt, und versucht möglichst lange
-        zu "überleben".
+        Fuer eine bessere KI muss hierbei auch die Suchtiefe mitgegeben werden.
+        Dies sorgt dafuer, dass die KI auch bei einem aussichtslosen Board (wie es beispielsweise
+        anfangs der Fall sein kann) immer noch bestmoeglich spielt, und versucht moeglichst lange
+        zu "ueberleben".
         """
         if (self._checkListFull(list) or self._checkGameOver(list)):
             return (self.score(player, list, column) + depth , -1)
