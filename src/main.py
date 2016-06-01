@@ -87,7 +87,7 @@ def turn():
         else :
             print("Keine gültige Eingabe!")
     '''
-    while not GamingBoard.gameOver:
+    while not myBoard.gameOver:
         inp = getch()
         if ord(inp) == 113:
             sys.exit()
