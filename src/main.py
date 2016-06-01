@@ -24,6 +24,8 @@ def main():
 
         # 1 Player Mode
         if ord(mode) == 49:
+            myBoard.gameOver = False
+
             while not myBoard.gameOver:
                 if myBoard.currentPlayer == 1:
                     turn()
@@ -43,6 +45,8 @@ def main():
 
         # 2 Player mode
         elif ord(mode) == 50:
+            myBoard.gameOver = False
+
             while not myBoard.gameOver:
                 if (myBoard.currentPlayer == 1):
                     turn()
@@ -70,8 +74,6 @@ def resetBoard():
             myBoard.board[row][col] = 0
     myBoard.currentPlayer = 1
     myBoard.currentPosition = 4
-    myBoard.gameOver = False
-
 
 def turn():
     '''
@@ -85,7 +87,7 @@ def turn():
         else :
             print("Keine gültige Eingabe!")
     '''
-    while True:
+    while not GamingBoard.gameOver:
         inp = getch()
         if ord(inp) == 113:
             sys.exit()
