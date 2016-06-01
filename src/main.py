@@ -20,8 +20,8 @@ def main():
     myLEDMatrix.start()
 
     while True:
-        mode = inp(getch());
-        print(ord(mode));
+        mode = getch()
+        print(ord(mode))
 
         # 1 Player Mode
         if ord(mode) == 1:
